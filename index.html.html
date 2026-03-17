@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>LINAJE RP — Tu Nueva Realidad</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    :root{--red:#e8001d;--red-glow:#ff0022;--green:#22c55e;--blue:#3b82f6;--white:#fff;--gray:#9ca3af;--black:#0d0d0d;}
+    body{background:var(--black);color:var(--white);font-family:'Inter',sans-serif;overflow-x:hidden;}
+    ::-webkit-scrollbar{width:4px;}
+    ::-webkit-scrollbar-track{background:#111;}
+    ::-webkit-scrollbar-thumb{background:var(--red);}
+    nav{position:fixed;top:0;left:0;right:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 28px;height:64px;background:rgba(13,13,13,.88);backdrop-filter:blur(14px);border-bottom:1px solid rgba(255,255,255,.06);}
+    .nav-left{display:flex;align-items:center;gap:10px;}
+    .nav-icon{width:38px;height:38px;border-radius:9px;background:linear-gradient(135deg,var(--red),#9b000e);display:flex;align-items:center;justify-content:center;font-family:'Montserrat',sans-serif;font-weight:900;font-size:1rem;color:#fff;}
+    .nav-brand{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.95rem;letter-spacing:.5px;}
+    .nav-links{display:flex;gap:28px;list-style:none;position:absolute;left:50%;transform:translateX(-50%);}
+    .nav-links a{font-size:.85rem;font-weight:500;color:rgba(255,255,255,.65);text-decoration:none;transition:color .2s;}
+    .nav-links a:hover{color:#fff;}
+    .nav-right{display:flex;align-items:center;gap:14px;}
+    .nav-online{display:flex;align-items:center;gap:6px;font-size:.78rem;color:rgba(255,255,255,.5);}
+    .dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 7px var(--green);animation:blink 2s infinite;}
+    @keyframes blink{0%,100%{opacity:1;}50%{opacity:.4;}}
+    .btn-nav{background:var(--red);color:#fff;border:none;cursor:pointer;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.78rem;letter-spacing:.5px;padding:9px 20px;border-radius:8px;text-decoration:none;transition:background .2s,transform .15s;}
+    .btn-nav:hover{background:var(--red-glow);transform:scale(1.04);}
+    #inicio{position:relative;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden;text-align:center;}
+    .hero-bg{position:absolute;inset:0;background:linear-gradient(to bottom,rgba(13,13,13,.5) 0%,rgba(13,13,13,.25) 35%,rgba(13,13,13,.55) 70%,rgba(13,13,13,.92) 100%),url('https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1600&q=80') center/cover no-repeat;}
+    .hero-bg::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,rgba(232,0,29,.06) 0%,rgba(232,0,29,.16) 55%,rgba(232,0,29,.04) 100%);}
+    .hero-noise{position:absolute;inset:0;pointer-events:none;opacity:.04;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
+    .hero-content{position:relative;z-index:10;padding:120px 24px 0;animation:fadeUp .85s ease both;}
+    @keyframes fadeUp{from{opacity:0;transform:translateY(30px);}to{opacity:1;transform:translateY(0);}}
+    .hero-badge{display:inline-flex;align-items:center;gap:8px;font-size:.7rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.45);margin-bottom:22px;}
+    .hero-badge::before,.hero-badge::after{content:'';width:20px;height:1px;background:rgba(255,255,255,.25);}
+    .hero-title{font-family:'Montserrat',sans-serif;font-size:clamp(4.5rem,15vw,9rem);font-weight:900;line-height:.9;letter-spacing:-2px;text-transform:uppercase;}
+    .hero-title .t1{color:#fff;}
+    .hero-title .t2{color:var(--red);text-shadow:0 0 50px rgba(232,0,29,.5),0 0 100px rgba(232,0,29,.18);}
+    .hero-desc{margin:26px auto 0;max-width:460px;font-size:clamp(.9rem,2.4vw,1.1rem);font-weight:400;line-height:1.78;color:rgba(255,255,255,.72);}
+    .hero-desc .hl{color:var(--red);}
+    .pc-box{display:none;margin:34px auto 0;max-width:320px;background:rgba(232,0,29,.08);border:1px solid rgba(232,0,29,.22);border-radius:16px;padding:24px;flex-direction:column;align-items:center;gap:10px;text-align:center;}
+    .pc-icon{width:46px;height:46px;border-radius:50%;background:rgba(232,0,29,.14);display:flex;align-items:center;justify-content:center;font-size:1.4rem;}
+    .pc-box h3{font-size:.9rem;font-weight:700;margin-top:2px;}
+    .pc-box p{font-size:.78rem;color:var(--gray);}
+    .hero-cta{margin-top:34px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+    .btn-primary{background:var(--red);color:#fff;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.88rem;letter-spacing:.5px;padding:14px 32px;border-radius:10px;border:none;cursor:pointer;text-decoration:none;transition:all .2s;position:relative;overflow:hidden;}
+    .btn-primary::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.14),transparent);transform:translateX(-100%);transition:transform .4s;}
+    .btn-primary:hover{background:var(--red-glow);transform:translateY(-2px);box-shadow:0 8px 28px rgba(232,0,29,.4);}
+    .btn-primary:hover::before{transform:translateX(100%);}
+    .hero-stats{position:relative;z-index:10;display:flex;justify-content:center;margin-top:56px;padding-bottom:80px;}
+    .stat{text-align:center;padding:0 44px;border-right:1px solid rgba(255,255,255,.1);}
+    .stat:last-child{border-right:none;}
+    .stat-n{font-family:'Montserrat',sans-serif;font-size:clamp(2.8rem,5.5vw,3.8rem);font-weight:900;line-height:1;}
+    .stat-n.g{color:var(--green);text-shadow:0 0 20px rgba(34,197,94,.4);}
+    .stat-n.b{color:var(--blue);text-shadow:0 0 20px rgba(59,130,246,.35);}
+    .stat-n.r{color:var(--red);text-shadow:0 0 20px rgba(232,0,29,.4);}
+    .stat-l{font-size:.68rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.4);margin-top:6px;}
+    .scroll-hint{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:7px;z-index:10;color:rgba(255,255,255,.3);font-size:.68rem;letter-spacing:2px;text-transform:uppercase;}
+    .scroll-arr{animation:bounce 2.2s infinite;}
+    @keyframes bounce{0%,100%{transform:translateY(0);}50%{transform:translateY(7px);}}
+    section{padding:96px 6%;position:relative;}
+    .s-eye{font-size:.7rem;font-weight:700;letter-spacing:3px;text-transform:uppercase;color:var(--red);margin-bottom:10px;}
+    .s-title{font-family:'Montserrat',sans-serif;font-size:clamp(1.9rem,4.5vw,3rem);font-weight:900;line-height:1.05;letter-spacing:-.5px;}
+    .s-bar{width:44px;height:3px;background:var(--red);border-radius:2px;margin:14px 0;}
+    .s-desc{color:var(--gray);font-size:.95rem;line-height:1.72;max-width:540px;margin-bottom:52px;}
+    #comunidad{background:#111;}
+    #comunidad::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(232,0,29,.4),transparent);}
+    .feat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(290px,1fr));gap:14px;}
+    .feat{background:#161616;border:1px solid rgba(255,255,255,.055);border-radius:14px;padding:30px;transition:border-color .3s,transform .25s,box-shadow .25s;}
+    .feat:hover{border-color:rgba(232,0,29,.32);transform:translateY(-4px);box-shadow:0 14px 36px rgba(0,0,0,.45);}
+    .feat-ic{width:46px;height:46px;border-radius:12px;background:rgba(232,0,29,.1);display:flex;align-items:center;justify-content:center;font-size:1.3rem;margin-bottom:18px;}
+    .feat h3{font-family:'Montserrat',sans-serif;font-weight:700;font-size:1rem;margin-bottom:9px;}
+    .feat p{color:var(--gray);font-size:.875rem;line-height:1.65;}
+    #reglas{background:#0d0d0d;}
+    #reglas::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(232,0,29,.4),transparent);}
+    .rules-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:10px;}
+    .rule{background:#111;border:1px solid rgba(255,255,255,.05);border-radius:12px;padding:22px 26px;display:flex;gap:18px;align-items:flex-start;transition:border-color .3s,background .3s;}
+    .rule:hover{border-color:rgba(232,0,29,.28);background:#161616;}
+    .rn{font-family:'Montserrat',sans-serif;font-size:1.9rem;font-weight:900;color:rgba(232,0,29,.22);line-height:1;min-width:38px;transition:color .3s;}
+    .rule:hover .rn{color:var(--red);}
+    .rule h4{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.875rem;letter-spacing:.4px;margin-bottom:5px;}
+    .rule p{color:var(--gray);font-size:.82rem;line-height:1.6;}
+    #guias{background:#111;}
+    #guias::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(232,0,29,.4),transparent);}
+    .steps{max-width:760px;margin:0 auto;display:flex;flex-direction:column;gap:10px;}
+    .step{background:#0d0d0d;border:1px solid rgba(255,255,255,.055);border-left:3px solid rgba(232,0,29,.18);border-radius:12px;padding:26px 30px;display:grid;grid-template-columns:54px 1fr;gap:20px;align-items:start;transition:border-color .3s,background .3s;}
+    .step:hover{border-color:var(--red);background:#131313;}
+    .sn{font-family:'Montserrat',sans-serif;font-size:2.6rem;font-weight:900;color:rgba(232,0,29,.3);line-height:1;transition:color .3s;}
+    .step:hover .sn{color:var(--red);}
+    .step h3{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.9rem;letter-spacing:.4px;margin-bottom:7px;}
+    .step p{color:var(--gray);font-size:.855rem;line-height:1.65;}
+    .stag{display:inline-block;margin-top:10px;padding:3px 10px;border-radius:20px;background:rgba(232,0,29,.09);border:1px solid rgba(232,0,29,.22);font-size:.65rem;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--red);}
+    #conectar{background:#0d0d0d;text-align:center;overflow:hidden;}
+    #conectar::before{content:'';position:absolute;top:0;left:0;right:0;height:1px;background:linear-gradient(90deg,transparent,rgba(232,0,29,.4),transparent);}
+    #conectar::after{content:'';position:absolute;bottom:-80px;left:50%;transform:translateX(-50%);width:560px;height:280px;border-radius:50%;background:rgba(232,0,29,.06);filter:blur(55px);pointer-events:none;}
+    .con-inner{position:relative;z-index:2;max-width:660px;margin:0 auto;}
+    .con-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:30px;}
+    .btn-dis{display:inline-flex;align-items:center;gap:9px;background:#5865F2;color:#fff;text-decoration:none;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.4px;padding:13px 26px;border-radius:10px;transition:all .2s;}
+    .btn-dis:hover{background:#4752C4;transform:translateY(-2px);box-shadow:0 8px 22px rgba(88,101,242,.35);}
+    .btn-fivem{display:inline-flex;align-items:center;gap:9px;background:var(--red);color:#fff;text-decoration:none;font-family:'Montserrat',sans-serif;font-weight:700;font-size:.82rem;letter-spacing:.4px;padding:13px 26px;border-radius:10px;transition:all .2s;}
+    .btn-fivem:hover{background:var(--red-glow);transform:translateY(-2px);box-shadow:0 8px 22px rgba(232,0,29,.35);}
+    .ip-box{display:inline-flex;align-items:center;gap:14px;background:#161616;border:1px solid rgba(255,255,255,.07);border-radius:10px;padding:13px 24px;margin-top:22px;}
+    .ip-box small{font-size:.68rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--gray);}
+    .ip-box span{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.9rem;color:var(--red);}
+    footer{background:#0a0a0a;border-top:1px solid rgba(255,255,255,.05);padding:52px 6% 30px;}
+    .foot-inner{display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:36px;margin-bottom:36px;}
+    .foot-brand .logo{font-family:'Montserrat',sans-serif;font-weight:900;font-size:1.3rem;letter-spacing:.5px;margin-bottom:10px;}
+    .foot-brand .logo span{color:var(--red);}
+    .foot-brand p{color:var(--gray);font-size:.83rem;line-height:1.7;max-width:210px;}
+    .foot-col h4{font-family:'Montserrat',sans-serif;font-weight:700;font-size:.68rem;letter-spacing:2px;text-transform:uppercase;color:var(--red);margin-bottom:14px;}
+    .foot-col a{display:block;color:var(--gray);text-decoration:none;font-size:.85rem;line-height:2.1;transition:color .2s;}
+    .foot-col a:hover{color:#fff;}
+    .foot-bottom{text-align:center;padding-top:26px;border-top:1px solid rgba(255,255,255,.04);color:rgba(255,255,255,.18);font-size:.72rem;letter-spacing:1px;}
+    .reveal{opacity:0;transform:translateY(26px);transition:opacity .65s ease,transform .65s ease;}
+    .reveal.visible{opacity:1;transform:none;}
+    @media(max-width:680px){.nav-links{display:none;}.hero-stats .stat{padding:0 18px;}.pc-box{display:flex;}.hero-cta{display:none;}}
+    @media(max-width:460px){.hero-stats{flex-direction:column;gap:24px;align-items:center;}.stat{border-right:none!important;}}
+    @media(max-width:700px){.foot-inner{grid-template-columns:1fr 1fr;}}
+  </style>
+</head>
+<body>
+<nav>
+  <div class="nav-left">
+    <div class="nav-icon">L</div>
+    <span class="nav-brand">LINAJE RP</span>
+  </div>
+  <ul class="nav-links">
+    <li><a href="#inicio">Inicio</a></li>
+    <li><a href="#comunidad">Comunidad</a></li>
+    <li><a href="#reglas">Reglas</a></li>
+    <li><a href="#guias">Guías</a></li>
+  </ul>
+  <div class="nav-right">
+    <div class="nav-online"><div class="dot"></div><span>342 Online</span></div>
+    <a href="#conectar" class="btn-nav">Conectar</a>
+  </div>
+</nav>
+
+<section id="inicio">
+  <div class="hero-bg"></div>
+  <div class="hero-noise"></div>
+  <div class="hero-content">
+    <div class="hero-badge">LINAJE RP &bull; Servidor Whitelist &bull; FiveM</div>
+    <h1 class="hero-title">
+      <span class="t1">LINAJE</span><br>
+      <span class="t2">ROLEPLAY</span>
+    </h1>
+    <p class="hero-desc">
+      Donde cada historia cobra vida y cada decisión marca la diferencia.<br>
+      <span class="hl">Tu nueva realidad comienza aquí.</span>
+    </p>
+    <div class="pc-box">
+      <div class="pc-icon">🖥️</div>
+      <h3>Solo disponible en PC</h3>
+      <p>Accede desde un navegador de escritorio</p>
+    </div>
+    <div class="hero-cta">
+      <a href="#guias" class="btn-primary">Comenzar Aventura</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-n g">342</div><div class="stat-l">Online</div></div>
+    <div class="stat"><div class="stat-n b">2.1K</div><div class="stat-l">Miembros</div></div>
+    <div class="stat"><div class="stat-n r">24/7</div><div class="stat-l">Activo</div></div>
+  </div>
+  <div class="scroll-hint"><span>Descubre más</span><span class="scroll-arr">↓</span></div>
+</section>
+
+<section id="comunidad">
+  <div class="reveal">
+    <p class="s-eye">Nuestra Comunidad</p>
+    <h2 class="s-title">¿Por qué LINAJE RP?</h2>
+    <div class="s-bar"></div>
+    <p class="s-desc">Un servidor whitelist serio con comunidad apasionada y la mejor experiencia de roleplay.</p>
+  </div>
+  <div class="feat-grid reveal">
+    <div class="feat"><div class="feat-ic">🎭</div><h3>Roleplay de Calidad</h3><p>Ambiente dedicado al RP serio. Cada jugador es seleccionado para mantener la inmersión al máximo.</p></div>
+    <div class="feat"><div class="feat-ic">🏙️</div><h3>Ciudad Viva</h3><p>Mapa y recursos exclusivos desarrollados por nuestro equipo. Una ciudad única en constante evolución.</p></div>
+    <div class="feat"><div class="feat-ic">⚡</div><h3>Scripts Únicos</h3><p>Sistema de empleos, economía, crimen y vida social completamente personalizado.</p></div>
+    <div class="feat"><div class="feat-ic">🛡️</div><h3>Staff Activo 24/7</h3><p>Equipo de moderación siempre presente para garantizar normas y ayudar a la comunidad.</p></div>
+    <div class="feat"><div class="feat-ic">🎯</div><h3>Eventos Semanales</h3><p>Narrativas y eventos organizados que hacen diferente cada semana. La historia la escribes tú.</p></div>
+    <div class="feat"><div class="feat-ic">📈</div><h3>Progresión Real</h3><p>Cada hora jugada construye el legado de tu personaje. Progresión robusta y significativa.</p></div>
+  </div>
+</section>
+
+<section id="reglas">
+  <div class="reveal">
+    <p class="s-eye">Normativa</p>
+    <h2 class="s-title">Reglas del Servidor</h2>
+    <div class="s-bar"></div>
+    <p class="s-desc">El respeto y la seriedad son los pilares de LINAJE RP. Estas normas hacen grande a nuestra comunidad.</p>
+  </div>
+  <div class="rules-grid reveal">
+    <div class="rule"><div class="rn">01</div><div><h4>Respeto Absoluto</h4><p>El respeto hacia jugadores y staff es obligatorio. Acoso o toxicidad resultan en ban permanente.</p></div></div>
+    <div class="rule"><div class="rn">02</div><div><h4>No RDM / VDM</h4><p>Prohibido matar o atropellar sin motivo de roleplay válido. Cada acción necesita contexto narrativo.</p></div></div>
+    <div class="rule"><div class="rn">03</div><div><h4>No Meta-Gaming</h4><p>Usar información obtenida fuera del RP dentro del juego está estrictamente prohibido.</p></div></div>
+    <div class="rule"><div class="rn">04</div><div><h4>No Power-Gaming</h4><p>No forzar acciones sobre otros personajes ni realizar acciones imposibles sin consentimiento.</p></div></div>
+    <div class="rule"><div class="rn">05</div><div><h4>Personaje Coherente</h4><p>Mantén la coherencia de tu personaje siempre. Permanece en rol en todo momento.</p></div></div>
+    <div class="rule"><div class="rn">06</div><div><h4>Bugs y Exploits</h4><p>Reportar cualquier bug encontrado. El abuso de exploits resulta en sanción inmediata.</p></div></div>
+    <div class="rule"><div class="rn">07</div><div><h4>Decisiones del Staff</h4><p>Las decisiones del equipo son definitivas. Los recursos se tramitan por canales oficiales.</p></div></div>
+    <div class="rule"><div class="rn">08</div><div><h4>Micrófono Requerido</h4><p>Micrófono funcional obligatorio para comunicación fluida y roleplay de calidad.</p></div></div>
+  </div>
+</section>
+
+<section id="guias">
+  <div class="reveal" style="text-align:center;">
+    <p class="s-eye">Guía de Ingreso</p>
+    <h2 class="s-title">¿Cómo unirte?</h2>
+    <div class="s-bar" style="margin-inline:auto;"></div>
+    <p class="s-desc" style="margin-inline:auto;">El proceso de whitelist es sencillo. Sigue estos pasos para formar parte de LINAJE RP.</p>
+  </div>
+  <div class="steps reveal">
+    <div class="step"><div class="sn">01</div><div><h3>Únete al Discord</h3><p>Entra a nuestro servidor de Discord. Es el centro de operaciones con toda la info y novedades.</p><span class="stag">Paso Inicial</span></div></div>
+    <div class="step"><div class="sn">02</div><div><h3>Lee las Reglas</h3><p>Familiarízate con toda la normativa. Comprenderlas es fundamental para superar el proceso de whitelist.</p><span class="stag">Obligatorio</span></div></div>
+    <div class="step"><div class="sn">03</div><div><h3>Crea tu Personaje</h3><p>Desarrolla la historia de fondo (backstory) de tu personaje. Debe ser coherente, detallada y original.</p><span class="stag">Creativo</span></div></div>
+    <div class="step"><div class="sn">04</div><div><h3>Abre tu Ticket WL</h3><p>Abre un ticket en el canal de Discord correspondiente. El staff revisará tu solicitud y realizará la entrevista.</p><span class="stag">Aplicar Ahora</span></div></div>
+    <div class="step"><div class="sn">05</div><div><h3>¡Bienvenido a la Ciudad!</h3><p>Una vez aprobado recibirás acceso. Instala FiveM, conecta y comienza tu historia en LINAJE RP.</p><span class="stag">¡Aprobado!</span></div></div>
+  </div>
+</section>
+
+<section id="conectar">
+  <div class="con-inner reveal">
+    <p class="s-eye">Únete Ahora</p>
+    <h2 class="s-title">Tu Legado Te Espera</h2>
+    <div class="s-bar" style="margin-inline:auto;"></div>
+    <p class="s-desc" style="margin-inline:auto;text-align:center;">Forma parte de una comunidad apasionada. El roleplay de calidad que buscabas está aquí.</p>
+    <div class="con-btns">
+      <a href="https://discord.gg/TU-DISCORD" target="_blank" class="btn-dis">
+        <svg width="20" height="15" viewBox="0 0 22 16" fill="white"><path d="M18.59 1.34A18.18 18.18 0 0 0 14.16 0c-.2.35-.42.82-.58 1.19a16.8 16.8 0 0 0-5.15 0A12.6 12.6 0 0 0 7.84 0 18.23 18.23 0 0 0 3.4 1.34 19.27 19.27 0 0 0 .06 13.7a18.28 18.28 0 0 0 5.57 2.82c.45-.61.85-1.26 1.2-1.95a11.9 11.9 0 0 1-1.89-.91c.16-.11.31-.23.46-.35a13.03 13.03 0 0 0 11.18 0c.15.12.3.24.46.35a12 12 0 0 1-1.9.91c.35.69.76 1.34 1.2 1.95a18.24 18.24 0 0 0 5.58-2.82A19.24 19.24 0 0 0 18.59 1.34ZM7.35 11.23c-1.11 0-2.03-1.02-2.03-2.27 0-1.25.9-2.27 2.03-2.27 1.12 0 2.04 1.02 2.03 2.27 0 1.25-.9 2.27-2.03 2.27Zm7.3 0c-1.12 0-2.03-1.02-2.03-2.27 0-1.25.89-2.27 2.02-2.27 1.13 0 2.04 1.02 2.03 2.27 0 1.25-.9 2.27-2.02 2.27Z"/></svg>
+        Discord
+      </a>
+      <a href="fivem://connect/TU-IP-AQUI" class="btn-fivem">🎮 Conectar al Servidor</a>
+    </div>
+    <div><div class="ip-box"><small>IP del Servidor</small><span>TU-IP-AQUI</span></div></div>
+  </div>
+</section>
+
+<footer>
+  <div class="foot-inner">
+    <div class="foot-brand">
+      <div class="logo">LINAJE<span>RP</span></div>
+      <p>El servidor whitelist donde cada historia importa y cada decisión define tu legado.</p>
+    </div>
+    <div class="foot-col"><h4>Navegación</h4><a href="#inicio">Inicio</a><a href="#comunidad">Comunidad</a><a href="#reglas">Reglas</a><a href="#guias">Guías</a></div>
+    <div class="foot-col"><h4>Comunidad</h4><a href="#">Discord</a><a href="#">Aplicar WL</a><a href="#">Normas</a><a href="#">Staff</a></div>
+    <div class="foot-col"><h4>Redes Sociales</h4><a href="#">TikTok</a><a href="#">Instagram</a><a href="#">YouTube</a></div>
+  </div>
+  <div class="foot-bottom">© 2025 LINAJE RP — Todos los derechos reservados. Servidor de roleplay FiveM.</div>
+</footer>
+
+<script>
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.1});
+  document.querySelectorAll('.reveal').forEach(r=>io.observe(r));
+  const nav=document.querySelector('nav');
+  window.addEventListener('scroll',()=>{nav.style.background=window.scrollY>50?'rgba(10,10,10,.96)':'rgba(13,13,13,.88)';});
+</script>
+</body>
+</html>
